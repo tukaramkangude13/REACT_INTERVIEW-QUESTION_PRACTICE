@@ -70,6 +70,8 @@ const GoogleSheet = () => {
 
   return (
     <div className="grid-container ml-20   w-[1550px] mt-11 p-4 bg-gray-100 rounded-lg">
+     
+   
       <span ref={spanRef} className="absolute  whitespace-pre">
         {color || " "} {/* Use " " for empty placeholder */}
       </span>

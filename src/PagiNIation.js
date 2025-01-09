@@ -274,7 +274,6 @@ const Pagination = () => {
         </button>
       </div>
 
-      {/* Rows Per Page Selector */}
       <div className="mt-4">
         <label htmlFor="rowsPerPage" className="block text-gray-700 mb-2">
           Rows per page:
