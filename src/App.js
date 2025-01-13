@@ -53,22 +53,26 @@ const App = () => {
       ],
     }));
   };
-
+console.log(folder);
   const addFolder = () => {
-    const existingFolderCount = Object.keys(folder).length;
-    const newFolderName = `folder${existingFolderCount + 1}`;
-
+    const existingFolderCount = Object.keys(folder);
+    const existingFolderCount1 = Object.keys(folder).length;
+    const newFolderName = `folder${existingFolderCount1 + 1}`;
+console.log(existingFolderCount)
     // Add the new folder directly
-    setFolder((prev) => ({
-      ...prev,
-      [newFolderName]: [
-        { name: "file4", type: "file" },
-        { name: "file5", type: "file" },
-        { name: "file6", type: "file" },
-      ],
-    }));
+    setFolder((prev) => (
+
+        
+      existingFolderCount.map((item,index)=>item===currentfolder ?  {...item,[folder]:[{name:"tukaram"}]} :item)
+    //   [newFolderName]: [
+    //     { name: "file4", type: "file" },
+    //     { name: "file5", type: "file" },
+    //     { name: "file6", type: "file" },
+    //   ],
+    ));
   };
-  console.log("currentfolder" + "  " + currentfolder);
+  console.log(folder);
+ 
   return (
     <div style={{ display: "flex", height: "100vh" }}>
       {/* Left Sidebar - Folder List */}

@@ -1,20 +1,19 @@
 import React, { useState } from "react";
 
 const MovieTicket = () => {
-  const [vipmatrix, setvipmatrix] = useState([
+  const [vipmatrix, setvipmatrix] = useState([    [1, 2, 3, 4, 5, 6],
     [1, 2, 3, 4, 5, 6],
     [1, 2, 3, 4, 5, 6],
     [1, 2, 3, 4, 5, 6],
-    [1, 2, 3, 4, 5, 6],
-    [1, 2, 3, 4, 5, 6],
-  ]);
+    [1, 2, 3, 4, 5, 6],]);
+  const numbers = [1, 2, 3];
 
   const [book, setbook] = useState([
     { seat: 0, type: "vip" },
     { seat: 0, type: "local" },
     { seat: 0, type: "general" },
   ]);
-
+  console.log(book);
   const setadd = (local, rowindex, colindex) => {
     // Increment the booked seat count
     setbook((prev) =>
@@ -31,20 +30,41 @@ const MovieTicket = () => {
     setvipmatrix((prev) =>
       prev.map((row, rIndex) =>
         rIndex === rowindex
-          ? row.map((seat, cIndex) =>
-              cIndex === colindex ? "B" : seat 
-            )
+          ? row.map((seat, cIndex) => (cIndex === colindex ? "B" : seat))
           : row
       )
     );
   };
-
+  const type = ["vip", "local", "general"];
+console.log(vipmatrix);
   return (
     <div>
       <h1 className="text-white mb-4">VIP Movie Seat Booking</h1>
 
-      {vipmatrix.map((row, rowindex) => (
-        <div key={rowindex} className="flex gap-5 mb-2">
+      {numbers.map((item, index) => (
+        <div className="border border-b-8 border-black">
+          {" "}
+          {type[index]}{" "}
+          {vipmatrix.map((row, rowindex) => (
+            <div key={rowindex} className="flex    gap-5 mb-2">
+              {row.map((seat, colindex) => (
+                <div
+                  key={colindex}
+                  onClick={() => setadd(index, rowindex, colindex)}
+                  className={`p-2 w-8 h-8 text-center cursor-pointer border ${
+                    seat === "B" ? "bg-red-500 text-white" : "bg-green-500"
+                  }`}
+                >
+                  {seat}
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      ))}
+
+      {/* <div  className="border border-b-8 border-black" > local  {vipmatrix.map((row, rowindex) => (
+        <div key={rowindex} className="flex    gap-5 mb-2">
           {row.map((seat, colindex) => (
             <div
               key={colindex}
@@ -57,7 +77,23 @@ const MovieTicket = () => {
             </div>
           ))}
         </div>
-      ))}
+      ))}</div>
+      <div  className="border border-b-8 border-black" > general  {vipmatrix.map((row, rowindex) => (
+        <div key={rowindex} className="flex    gap-5 mb-2">
+          {row.map((seat, colindex) => (
+            <div
+              key={colindex}
+              onClick={() => setadd(0, rowindex, colindex)}
+              className={`p-2 w-8 h-8 text-center cursor-pointer border ${
+                seat === "B" ? "bg-red-500 text-white" : "bg-green-500"
+              }`}
+            >
+              {seat}
+            </div>
+          ))}
+        </div>
+      ))}</div>
+      */}
 
       {console.log(vipmatrix)}
       <div className="mt-4">

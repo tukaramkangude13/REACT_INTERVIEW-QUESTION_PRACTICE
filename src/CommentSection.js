@@ -18,15 +18,15 @@ const CommentSection = () => {
     setComment('');
   };
 
-//   const addReply = (id, replyText) => {
-//     setData((prev) =>
-//       prev.map((item) =>
-//         item.id === id
-//           ? { ...item, replies: [...item.replies, replyText] }
-//           : item
-//       )
-//     );
-//   };
+  const addReply = (id, replyText) => {
+    setData((prev) =>
+      prev.map((item) =>
+        item.id === id
+          ? { ...item, replies: [...item.replies, replyText] }
+          : item
+      )
+    );
+  };
 
   const likeComment = (id) => {
     setData((prev) =>

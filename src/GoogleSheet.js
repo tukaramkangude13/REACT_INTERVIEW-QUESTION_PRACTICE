@@ -5,6 +5,8 @@ const GoogleSheet = () => {
   const [text, settext] = useState("");
   const [color, setcolor] = useState(null);
   const cols = 8;
+  const[textsize,settextsize]=useState("xl");
+
   const spanRef = useRef();
   const inputRef = useRef();
   const [grid, setgrid] = useState(
@@ -13,14 +15,14 @@ const GoogleSheet = () => {
         name: "",
         colour: null,
         text: null,
+        size:textsize,
       }))
     )
   );
   const [currentInput, setCurrentInput] = useState({ row: null, col: null });
   useEffect(() => {
     if (spanRef.current && inputRef.current) {
-      // Adjust the input width based on the span's width
-      const newWidth = spanRef.current.offsetWidth + 20; // Add padding
+      const newWidth = spanRef.current.offsetWidth + 20;
       inputRef.current.style.width = `${newWidth}px`;
     }
   }, [text]);
@@ -38,14 +40,13 @@ const GoogleSheet = () => {
 
   const [change, setchange] = useState(false);
   const [bold, setbold] = useState(false);
-
   const corefunction = () => {
     setgrid((prev) =>
       prev.map((row, rowIndex) =>
         rowIndex === currentInput.row
           ? row.map((col, colIndex) =>
               colIndex === currentInput.col
-                ? { ...col, name: (col.name = text) }
+                ? { ...col, name: (col.name = text),  size:(col.size=textsize) }
                 : col
             )
           : row
@@ -59,18 +60,56 @@ const GoogleSheet = () => {
         rowIndex === currentInput.row
           ? row.map((col, colIndex) =>
               colIndex === currentInput.col
-                ? { ...col, colour: (col.colour = 'black' ) }
+                ? { ...col, colour: (col.colour = 'red-500' ) }
                 : col
             )
           : row
       )
     );
   };
-  console.log(grid);
+  const changetextsize = () => {
+    setgrid((prev) =>
+      prev.map((row, rowIndex) =>
+        rowIndex === currentInput.row
+          ? row.map((col, colIndex) =>
+              colIndex === currentInput.col
+                ? { ...col, size: (col.size = textsize ) }
+                : col
+            )
+          : row
+      )
+    );
+  };
 
+
+  
+  console.log(grid);
+console.log(textsize);
   return (
     <div className="grid-container ml-20   w-[1550px] mt-11 p-4 bg-gray-100 rounded-lg">
      
+     <div className="mb-4">
+        <label htmlFor="textsize" className="block mb-2 text-gray-700">
+          Select Text Size:
+        </label>
+        <select
+          id="textsize"
+          onChange={(e) => { settextsize(e.target.value);  changetextsize() }}
+          className="border border-gray-300 rounded px-4 py-2"
+        >
+          <option value="sm">sm</option>
+          <option value="md">md</option>
+          <option value="lg">lg</option>
+          <option value="xl">xl</option>
+          <option value="2xl">2xl</option>
+          <option value="3xl">3xl</option>
+          <option value="4xl">4xl</option>
+          <option value="5xl">5xl</option>
+          <option value="6xl">6xl</option>
+          <option value="7xl">7xl</option>
+        </select>
+      </div>
+
    
       <span ref={spanRef} className="absolute  whitespace-pre">
         {color || " "} {/* Use " " for empty placeholder */}
@@ -135,15 +174,21 @@ const GoogleSheet = () => {
                   ? "font-bold"
                   : ""
               }${
+              
+                rowIndex === currentInput.row &&
+                colIndex === currentInput.col
+                  ? `text-${_.size}   `
+                  : ""
+              }${
                   rowIndex === currentInput.row && colIndex === currentInput.col
                     ? ""
                     : ""
                 }${
   grid?.[rowIndex][colIndex].colour
-    ? `bg-${grid?.[rowIndex][colIndex].colour}` // Interpolate directly
+    ? `bg-${grid?.[rowIndex][colIndex].colour}` 
     : ""
 }
-  border border-gray-400 rounded px-2 py-1 min-w-[100px] max-w-full resize focus:outline-none
+  border   rounded px-2       py-1 min-w-[100px] max-w-full 
 `}
                 placeholder={`${rowIndex + 1},${colIndex + 1}`}
               />
